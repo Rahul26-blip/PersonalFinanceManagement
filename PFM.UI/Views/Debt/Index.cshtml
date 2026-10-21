@@ -1,0 +1,113 @@
+﻿@model List<PFM.UI.Models.DebtModel>
+
+@{
+    ViewData["Title"] = "Debts";
+}
+
+<div class="pfm-page-toolbar">
+    <h2>Debts</h2>
+    <a asp-action="Create" class="pfm-create-btn">
+        <i class="bi bi-plus-lg"></i> Create Debt
+    </a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Debt ID</th>
+                    <th>User ID</th>
+                    <th>Debt Name</th>
+                    <th>Total Amount</th>
+                    <th>Remaining Amount</th>
+                    <th>Interest Rate</th>
+                    <th>Due Date</th>
+                    <th>Paid</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.DebtsId</td>
+                            <td>@item.UserId</td>
+                            <td>@item.DebtsName</td>
+                            <td>₹@item.ToltalAmount.ToString("N2")</td>
+                            <td>₹@item.RemainingAmount.ToString("N2")</td>
+                            <td>@item.InterestRate</td>
+                            <td>
+                                @(item.DueDate.HasValue
+                                    ? item.DueDate.Value.ToString("dd MMM yyyy")
+                                    : "-")
+                            </td>
+                            <td>
+                                <span class="badge @(item.IsPaid ? "bg-success" : "bg-warning text-dark")">
+                                    @(item.IsPaid ? "Paid" : "Pending")
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
+                                    @(item.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a asp-action="Edit" asp-route-Id="@item.DebtsId"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteDebt-@item.DebtsId">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="10" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+                            No debts found. Click Create Debt to add one.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="modal fade" id="deleteDebt-@item.DebtsId" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Debt</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete <strong>@item.DebtsName</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="Id" value="@item.DebtsId" />
+                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

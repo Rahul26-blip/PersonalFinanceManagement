@@ -1,0 +1,60 @@
+﻿@model PFM.UI.Models.CategoryModel
+
+<div class="pfm-page-toolbar">
+    <h2>Edit Category</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Categories
+    </a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="card-body p-4">
+        <form asp-action="Edit" method="post" class="pfm-form">
+            <input asp-for="CategoriesId" type="hidden" />
+            <input asp-for="CreatedOn" type="hidden" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="CategoriesName" class="form-label">Category Name</label>
+                    <input asp-for="CategoriesName" class="form-control" />
+                    <span asp-validation-for="CategoriesName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="CategoriesCode" class="form-label">Category Code</label>
+                    <input asp-for="CategoriesCode" class="form-control" />
+                    <span asp-validation-for="CategoriesCode" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="UserId" class="form-label">User ID</label>
+                    <input asp-for="UserId" type="number" class="form-control" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label d-block">Status</label>
+                    <div class="form-check form-switch mt-2">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="d-flex justify-content-end gap-2">
+                <a asp-action="Index" class="btn btn-light">Cancel</a>
+                <button type="submit" class="btn btn-primary px-4">
+                    <i class="bi bi-check-lg"></i> Update Category
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

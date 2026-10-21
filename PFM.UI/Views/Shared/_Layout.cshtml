@@ -1,0 +1,393 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - PFM.Tech </title>
+
+    <script type="importmap"></script>
+
+    <!-- Existing Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Existing Bootstrap Icons from your current layout -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+    <!-- Main PFM stylesheet -->
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <!-- Existing Razor class library styles -->
+    <link rel="stylesheet"
+          href="~/PFM.UI.styles.css"
+          asp-append-version="true" />
+</head>
+
+<body>
+
+    <!-- Main application wrapper -->
+    <div class="pfm-wrapper">
+
+        <!-- ================================= -->
+        <!-- LEFT SIDEBAR                     -->
+        <!-- ================================= -->
+
+        <aside class="pfm-sidebar" id="pfmSidebar">
+
+            <!-- PFM Logo -->
+            <div class="pfm-logo">
+
+                <a asp-area=""
+                   asp-controller="Home"
+                   asp-action="Index"
+                   class="pfm-logo-link">
+
+                    <span class="pfm-logo-icon">
+                        <i class="bi bi-wallet2"></i>
+                    </span>
+
+                    <span class="pfm-logo-text">
+                        PFM.Tech
+                    </span>
+
+                </a>
+
+            </div>
+
+            <!-- Sidebar Navigation -->
+            <nav class="pfm-sidebar-menu" aria-label="Main navigation">
+
+                <!-- Dashboard -->
+                <a class="pfm-menu-item"
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+
+                </a>
+
+                <!-- Finance Section -->
+                <div class="pfm-menu-section">
+
+                    <div class="pfm-menu-title">
+                        FINANCE
+                    </div>
+
+                    <a class="pfm-menu-item"
+                       asp-controller="Account"
+                       asp-action="Index">
+
+                        <i class="bi bi-bank"></i>
+                        <span>Accounts</span>
+
+                    </a>
+
+                    <a class="pfm-menu-item"
+                       asp-controller="Category"
+                       asp-action="Index">
+
+                        <i class="bi bi-tags"></i>
+                        <span>Categories</span>
+
+                    </a>
+
+                    <a class="pfm-menu-item"
+                       asp-controller="Transaction"
+                       asp-action="Index">
+
+                        <i class="bi bi-arrow-left-right"></i>
+                        <span>Transactions</span>
+
+                    </a>
+
+                </div>
+
+                <!-- Planning Section -->
+                <div class="pfm-menu-section">
+
+                    <div class="pfm-menu-title">
+                        PLANNING
+                    </div>
+
+                    <a class="pfm-menu-item"
+                       asp-controller="Budget"
+                       asp-action="Index">
+
+                        <i class="bi bi-pie-chart"></i>
+                        <span>Budgets</span>
+
+                    </a>
+
+                    <a class="pfm-menu-item"
+                       asp-controller="SavingGole"
+                       asp-action="Index">
+
+                        <i class="bi bi-bullseye"></i>
+                        <span>Saving Goals</span>
+
+                    </a>
+
+                </div>
+
+                <!-- Financial Commitments -->
+                <div class="pfm-menu-section">
+
+                    <div class="pfm-menu-title">
+                        FINANCIAL
+                    </div>
+
+                    <a class="pfm-menu-item"
+                       asp-controller="Debt"
+                       asp-action="Index">
+
+                        <i class="bi bi-credit-card"></i>
+                        <span>Debts</span>
+
+                    </a>
+
+                    <a class="pfm-menu-item"
+                       asp-controller="Investment"
+                       asp-action="Index">
+
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <span>Investments</span>
+
+                    </a>
+
+                </div>
+
+                
+           <!-- Administration -->
+                <div class="pfm-menu-section">
+
+           <div class="pfm-menu-title">
+                   ADMINISTRATION
+                  </div>
+
+               <!-- Users -->
+               <a class="pfm-menu-item" asp-controller="User" asp-action="Index">
+
+                  <i class="bi bi-people"></i>
+                      <span>Users</span>
+
+                </a>
+
+               <!-- Roles -->
+              @* <a class="pfm-menu-item" asp-controller="Role" asp-action="Index">
+
+                   <i class="bi bi-person-badge"></i>
+                  <span>Roles</span>
+
+                </a> *@
+                <a class="pfm-menu-item"asp-controller="Role"asp-action="Index">
+                <i class="bi bi-person-badge"></i>
+                <span>Roles</span>
+                 </a>
+
+               <!-- Permissions -->
+                 <a class="pfm-menu-item" asp-controller="Permission" asp-action="Index">
+
+                   <i class="bi bi-shield-lock"></i>
+                  <span>Permissions</span>
+
+                 </a>
+
+                  <!-- Role Permissions -->
+                  <a class="pfm-menu-item"asp-controller="RolePermission"asp-action="Index">
+
+                   <i class="bi bi-shield-check"></i>
+                   <span>Role Permissions</span>
+
+                 </a>
+
+                 </div>
+
+
+            <!-- Sidebar Footer -->
+            <div class="pfm-sidebar-bottom">
+                <i class="bi bi-wallet2"></i>
+                <span>PFM.Tech Finance Management</span>
+            </div>
+
+        </aside>
+
+        <!-- ================================= -->
+        <!-- MAIN APPLICATION CONTENT          -->
+        <!-- ================================= -->
+
+        <div class="pfm-main">
+
+            <!-- Top Header -->
+            <header class="pfm-header">
+
+                <!-- Header Left -->
+                <div class="pfm-header-left">
+
+                    @* <!-- Sidebar Toggle -->
+                    <button type="button"
+                            class="pfm-toggle-button"
+                            id="sidebarToggle"
+                            aria-label="Toggle sidebar"
+                            aria-controls="pfmSidebar"
+                            aria-expanded="true">
+
+                        <i class="bi bi-list"></i>
+
+                    </button> *@
+
+                    <div class="pfm-header-heading">
+
+                        <span class="pfm-header-title">
+                          PFM.Tech Finance Management
+                        </span>
+
+                        <span class="pfm-header-subtitle">
+                            Manage your money smartly
+                        </span>
+
+
+                    </div>
+
+                </div>
+
+                <!-- Header Right -->
+                <div class="pfm-header-right">
+
+                    <!-- User Profile Dropdown -->
+                    <div class="dropdown">
+
+                        <button class="pfm-profile-button dropdown-toggle"
+                                type="button"
+                                id="profileDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+
+                            <span class="pfm-avatar">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+
+                            
+                            <span class="pfm-user-name">
+                                @(Context.Session.GetString("UserCode") ?? "User")
+                           </span>
+
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end pfm-profile-menu"
+                            aria-labelledby="profileDropdown">
+
+                            <li class="px-3 py-3">
+
+                                <div class="pfm-profile-info">
+
+                                    <span class="pfm-large-avatar">
+                                        <i class="bi bi-person-fill"></i>
+                                    </span>
+
+                                    <div>
+                                        <strong>@(Context.Session.GetString("UserCode") ?? "User")</strong>
+                                        <small>Personal Finance Account</small>
+                                    </div>
+
+                                </div>
+
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item"
+                                   href="#">
+
+                                    <i class="bi bi-person me-2"></i>
+                                    My Profile
+
+                                </a>
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+
+                            <li>
+                                <!-- Keep the logout action name from your project. -->
+                                <form asp-controller="Login"
+                                      asp-action="Logout"
+                                      method="post"
+                                      class="m-0">
+
+                                    <button type="submit"
+                                            class="dropdown-item text-danger">
+
+                                        <i class="bi bi-box-arrow-right me-2"></i>
+                                        Logout
+
+                                    </button>
+
+                                </form>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- ================================= -->
+            <!-- PAGE CONTENT                      -->
+            <!-- ================================= -->
+
+           <main role="main" class="pfm-content">
+
+                <div class="pfm-page-container">
+                       @RenderBody()
+               </div>
+
+                </main>
+            <!-- ================================= -->
+            <!-- FOOTER                            -->
+            <!-- ================================= -->
+
+            <footer class="pfm-footer">
+
+                <span>
+                    &copy; @DateTime.Now.Year Fin.Tech
+                </span>
+
+                <a asp-controller="Home"
+                   asp-action="Privacy">
+                    Privacy
+                </a>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+    <!-- Existing JavaScript Libraries -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
+
+    <!-- Allow individual Views to load their own scripts -->
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

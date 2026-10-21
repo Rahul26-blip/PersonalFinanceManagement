@@ -1,0 +1,1947 @@
+
+/* =========================================
+   PFM - PERSONAL FINANCE MANAGER
+   Main UI Styles
+========================================= */
+
+:root {
+    --pfm-sidebar: #174b55;
+    --pfm-sidebar-hover: #236571;
+    --pfm-primary: #258b91;
+    --pfm-primary-hover: #1c7379;
+    --pfm-background: #f2f5f7;
+    --pfm-white: #ffffff;
+    --pfm-text: #273746;
+    --pfm-muted: #7b8794;
+    --pfm-border: #e3e9ed;
+    --pfm-danger: #dc4c64;
+    --pfm-sidebar-width: 255px;
+}
+
+/* Basic reset */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--pfm-text);
+    background: var(--pfm-background);
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* =========================================
+   APPLICATION LAYOUT
+========================================= */
+
+.pfm-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.pfm-main {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-left: var(--pfm-sidebar-width);
+    transition: margin-left 0.25s ease;
+}
+
+.pfm-content {
+    flex: 1;
+    width: 100%;
+    padding: 28px;
+    min-width: 0;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.pfm-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    width: var(--pfm-sidebar-width);
+    color: #ffffff;
+    background: var(--pfm-sidebar);
+    box-shadow: 3px 0 15px rgba(20, 47, 55, 0.08);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: width 0.25s ease, transform 0.25s ease;
+}
+
+.pfm-logo {
+    min-height: 78px;
+    padding: 17px 23px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pfm-logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+    .pfm-logo-link:hover {
+        color: #d5f5f1;
+    }
+
+
+.pfm-logo-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #168a80;
+    color: #ffffff;
+    font-size: 23px;
+}
+
+    .pfm-logo-icon i {
+        display: block;
+        color: #ffffff;
+        font-size: 23px;
+        line-height: 1;
+    }
+
+
+.pfm-sidebar-menu {
+    flex: 1;
+    padding: 16px 12px;
+}
+
+.pfm-menu-section {
+    margin-top: 22px;
+}
+
+.pfm-menu-title {
+    padding: 0 13px;
+    margin-bottom: 8px;
+    color: #a9c9cd;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.pfm-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-height: 45px;
+    width: 100%;
+    padding: 11px 14px;
+    margin: 3px 0;
+    border: none;
+    border-radius: 8px;
+    color: #e5f0f1;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+    .pfm-menu-item i {
+        width: 20px;
+        flex-shrink: 0;
+        font-size: 17px;
+        text-align: center;
+    }
+
+    .pfm-menu-item:hover {
+        color: #ffffff;
+        background: var(--pfm-sidebar-hover);
+    }
+
+    .pfm-menu-item:focus-visible,
+    .pfm-toggle-button:focus-visible,
+    .pfm-profile-button:focus-visible {
+        outline: 2px solid #76d6d2;
+        outline-offset: 2px;
+    }
+
+    .pfm-menu-item[aria-disabled="true"] {
+        opacity: 0.6;
+        cursor: default;
+    }
+
+.pfm-sidebar-bottom {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 18px 20px;
+    color: #b9d1d4;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 11px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pfm-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 12px 28px;
+    background: var(--pfm-white);
+    border-bottom: 1px solid var(--pfm-border);
+    box-shadow: 0 2px 8px rgba(30, 55, 65, 0.025);
+}
+
+.pfm-header-left,
+.pfm-header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pfm-toggle-button {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--pfm-border);
+    border-radius: 9px;
+    background: #ffffff;
+    color: var(--pfm-text);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+    .pfm-toggle-button:hover {
+        background: #edf7f7;
+        color: var(--pfm-primary);
+    }
+
+.pfm-header-heading {
+    display: flex;
+    flex-direction: column;
+}
+
+.pfm-header-title {
+    color: var(--pfm-text);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.pfm-header-subtitle {
+    margin-top: 2px;
+    color: var(--pfm-muted);
+    font-size: 12px;
+}
+
+/* =========================================
+   PROFILE DROPDOWN
+========================================= */
+
+.pfm-profile-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--pfm-text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+    .pfm-profile-button:hover,
+    .pfm-profile-button.show {
+        background: #f2f8f8;
+        border-color: var(--pfm-border);
+    }
+
+    .pfm-profile-button::after {
+        margin-left: 2px;
+    }
+
+.pfm-avatar,
+.pfm-large-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--pfm-primary);
+}
+
+.pfm-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+}
+
+.pfm-large-avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 23px;
+}
+
+.pfm-profile-menu {
+    min-width: 240px;
+    padding: 8px;
+    border: 1px solid var(--pfm-border);
+    border-radius: 12px;
+    box-shadow: 0 12px 35px rgba(20, 40, 50, 0.12);
+}
+
+.pfm-profile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .pfm-profile-info strong,
+    .pfm-profile-info small {
+        display: block;
+    }
+
+    .pfm-profile-info strong {
+        font-size: 14px;
+    }
+
+    .pfm-profile-info small {
+        margin-top: 3px;
+        color: var(--pfm-muted);
+        font-size: 11px;
+    }
+
+.pfm-profile-menu .dropdown-item {
+    padding: 10px 12px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.pfm-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 17px 28px;
+    border-top: 1px solid var(--pfm-border);
+    background: #ffffff;
+    color: var(--pfm-muted);
+    font-size: 12px;
+}
+
+    .pfm-footer a {
+        color: var(--pfm-primary);
+    }
+
+        .pfm-footer a:hover {
+            color: var(--pfm-primary-hover);
+        }
+
+/* =========================================
+   GENERAL BUTTONS
+========================================= */
+
+.btn-primary {
+    color: #ffffff;
+    background-color: var(--pfm-primary);
+    border-color: var(--pfm-primary);
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        color: #ffffff;
+        background-color: var(--pfm-primary-hover);
+        border-color: var(--pfm-primary-hover);
+    }
+
+/* =========================================
+   TABLES AND FORMS
+========================================= */
+
+.pfm-content .card {
+    border: 1px solid var(--pfm-border);
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(30, 55, 65, 0.04);
+}
+
+.pfm-content .card-header {
+    padding: 16px 20px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--pfm-border);
+}
+
+.pfm-content .card-body {
+    padding: 20px;
+}
+
+.pfm-content .table {
+    vertical-align: middle;
+}
+
+    .pfm-content .table thead th {
+        padding: 14px 12px;
+        background: #f6f9fa;
+        color: #61717d;
+        border-bottom: 1px solid var(--pfm-border);
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .pfm-content .table tbody td {
+        padding: 13px 12px;
+        border-color: var(--pfm-border);
+    }
+
+.pfm-content .form-label {
+    margin-bottom: 7px;
+    color: #465762;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pfm-content .form-control,
+.pfm-content .form-select {
+    min-height: 42px;
+    border-color: #dce4e8;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+    .pfm-content .form-control:focus,
+    .pfm-content .form-select:focus {
+        border-color: var(--pfm-primary);
+        box-shadow: 0 0 0 0.2rem rgba(37, 139, 145, 0.13);
+    }
+
+/* =========================================
+   COLLAPSED SIDEBAR
+========================================= */
+
+body.pfm-sidebar-collapsed .pfm-sidebar {
+    width: 76px;
+}
+
+body.pfm-sidebar-collapsed .pfm-main {
+    margin-left: 76px;
+}
+
+body.pfm-sidebar-collapsed .pfm-logo {
+    justify-content: center;
+    padding: 15px 8px;
+}
+
+body.pfm-sidebar-collapsed .pfm-logo-link {
+    gap: 0;
+}
+
+body.pfm-sidebar-collapsed .pfm-logo-text,
+body.pfm-sidebar-collapsed .pfm-menu-item span,
+body.pfm-sidebar-collapsed .pfm-menu-title,
+body.pfm-sidebar-collapsed .pfm-sidebar-bottom span {
+    display: none;
+}
+
+body.pfm-sidebar-collapsed .pfm-menu-item {
+    justify-content: center;
+    padding: 12px 8px;
+}
+
+    body.pfm-sidebar-collapsed .pfm-menu-item i {
+        font-size: 20px;
+    }
+
+body.pfm-sidebar-collapsed .pfm-sidebar-bottom {
+    justify-content: center;
+    padding: 18px 8px;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 991.98px) {
+    .pfm-sidebar {
+        transform: translateX(-100%);
+        width: var(--pfm-sidebar-width);
+    }
+
+    .pfm-main,
+    body.pfm-sidebar-collapsed .pfm-main {
+        margin-left: 0;
+    }
+
+    body.pfm-sidebar-open .pfm-sidebar {
+        transform: translateX(0);
+        width: var(--pfm-sidebar-width);
+    }
+
+    body.pfm-sidebar-open .pfm-logo {
+        justify-content: flex-start;
+        padding: 17px 23px;
+    }
+
+    body.pfm-sidebar-open .pfm-logo-text,
+    body.pfm-sidebar-open .pfm-menu-title,
+    body.pfm-sidebar-open .pfm-sidebar-bottom span {
+        display: inline;
+    }
+
+    body.pfm-sidebar-open .pfm-menu-item {
+        justify-content: flex-start;
+        padding: 11px 14px;
+    }
+
+        body.pfm-sidebar-open .pfm-menu-item span {
+            display: inline;
+        }
+
+    .pfm-content {
+        padding: 22px 18px;
+    }
+
+    .pfm-header {
+        padding: 12px 18px;
+    }
+
+    .pfm-footer {
+        padding: 16px 18px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .pfm-header {
+        gap: 8px;
+        padding: 10px 12px;
+    }
+
+    .pfm-header-left,
+    .pfm-header-right {
+        gap: 8px;
+    }
+
+    .pfm-header-title {
+        font-size: 13px;
+    }
+
+    .pfm-header-subtitle {
+        font-size: 10px;
+    }
+
+    .pfm-toggle-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .pfm-profile-button {
+        gap: 5px;
+        padding: 4px;
+    }
+
+    .pfm-user-name {
+        display: none;
+    }
+
+    .pfm-content {
+        padding: 16px 12px;
+    }
+
+    .pfm-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 12px;
+    }
+}
+
+/* ==========================================
+   GLOBAL INDEX PAGE DESIGN
+   Applies to all PFM module list pages
+========================================== */
+
+/* Page heading */
+.pfm-content h1,
+.pfm-content h2 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #273746;
+    margin-bottom: 0;
+}
+
+/* Common page header row:
+   title on left and Create button on right */
+.pfm-content .d-flex.justify-content-between.align-items-center {
+    margin-bottom: 24px;
+    gap: 16px;
+}
+
+/* Table headings */
+.pfm-content .table thead th {
+    font-size: 14px;
+    font-weight: 700;
+    color: #425466;
+    padding: 16px 14px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* Table content */
+.pfm-content .table tbody td {
+    font-size: 14px;
+    padding: 14px;
+    vertical-align: middle;
+}
+
+/* Create buttons */
+.pfm-content a.btn-primary,
+.pfm-content button.btn-primary {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+/* Consistent table appearance */
+.pfm-content .table {
+    margin-bottom: 0;
+    background: #ffffff;
+}
+
+/* Responsive page headings */
+@media (max-width: 575.98px) {
+    .pfm-content h1,
+    .pfm-content h2 {
+        font-size: 23px;
+    }
+
+    .pfm-content .d-flex.justify-content-between.align-items-center {
+        align-items: flex-start !important;
+        flex-wrap: wrap;
+    }
+}
+
+/* =========================================
+   GLOBAL LIST PAGE DESIGN
+========================================= */
+
+/* Page title and Create button row */
+.pfm-page-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+    .pfm-page-toolbar h1,
+    .pfm-page-toolbar h2 {
+        margin: 0;
+        color: #273746;
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+/* Large Create button */
+.pfm-create-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 8px;
+    background-color: #258b91;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+    .pfm-create-btn:hover {
+        background-color: #1c7379;
+        color: #ffffff;
+        transform: translateY(-1px);
+    }
+
+/* List card */
+.pfm-list-card {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e3e9ed;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(30, 55, 65, 0.04);
+}
+
+    /* Table headings */
+    .pfm-list-card .table thead th {
+        padding: 17px 16px;
+        background: #f6f9fa;
+        color: #425466;
+        font-size: 14px;
+        font-weight: 700;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    /* Table rows */
+    .pfm-list-card .table tbody td {
+        padding: 15px 16px;
+        color: #344653;
+        font-size: 14px;
+        vertical-align: middle;
+        border-color: #edf0f2;
+    }
+
+    /* Table hover */
+    .pfm-list-card .table tbody tr:hover {
+        background-color: #f6fbfb;
+    }
+
+/* Mobile responsiveness */
+@media (max-width: 575.98px) {
+    .pfm-page-toolbar {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+        .pfm-page-toolbar h1,
+        .pfm-page-toolbar h2 {
+            font-size: 24px;
+        }
+
+    .pfm-create-btn {
+        min-height: 44px;
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+
+    .pfm-list-card {
+        overflow-x: auto;
+    }
+}
+
+/* =========================================
+   ALL PFM CREATE AND EDIT FORMS
+   Stack fields vertically
+========================================= */
+
+/* One field per row */
+.pfm-form .row {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+    /* Make every field full width */
+    .pfm-form .row > [class*="col-"] {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+/* Consistent form spacing */
+.pfm-form .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pfm-form .form-control,
+.pfm-form .form-select {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 8px;
+}
+
+/* Space between the form and action buttons */
+.pfm-form hr {
+    margin-top: 28px;
+    margin-bottom: 24px;
+}
+/* Common styling for all Index pages */
+.pfm-create-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #238f96;
+    color: #fff;
+    padding: 15px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+}
+
+    .pfm-create-btn:hover {
+        background: #1a747b;
+        color: #fff;
+    }
+
+.pfm-list-card {
+    background: #fff;
+    border: 1px solid #e0e7eb;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(20, 50, 65, 0.04);
+}
+
+.pfm-table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+    .pfm-table thead th {
+        background: #f5f8f9;
+        color: #30465a;
+        font-weight: 700;
+        padding: 20px 18px;
+        white-space: nowrap;
+        border-bottom: 1px solid #e0e7eb;
+    }
+
+    .pfm-table tbody td {
+        padding: 17px 18px;
+        border-bottom: 1px solid #edf0f2;
+        color: #405367;
+        vertical-align: middle;
+    }
+
+    .pfm-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+.pfm-empty-state {
+    text-align: center;
+    color: #607286;
+    padding: 0 !important;
+}
+
+    .pfm-empty-state i {
+        color: #526b7c;
+    }
+
+@media (max-width: 768px) {
+    .pfm-create-btn {
+        padding: 10px 14px;
+    }
+
+    .pfm-page-title {
+        font-size: 26px;
+    }
+}
+```css
+/* Dashboard Background */
+.pfm-dashboard {
+    padding: 15px;
+    color: #30465a;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 16px;
+}
+
+    .dashboard-header h2 {
+        font-size: 24px;
+        margin: 0 0 8px;
+    }
+
+    .dashboard-header p {
+        color: #718096;
+        margin: 0;
+    }
+
+/* Add Transaction Button */
+.dashboard-create-btn {
+    background: #238f96;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+    .dashboard-create-btn:hover {
+        background: #1a747b;
+        color: white;
+    }
+
+/* Four Summary Cards */
+.dashboard-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.summary-card {
+    background: white;
+    padding: 16px;
+    border-radius: 9px;
+}
+
+    .summary-card p {
+        color: #718096;
+        margin-bottom: 10px;
+    }
+
+    .summary-card h4 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+.income-text {
+    color: #15945f !important;
+}
+
+.expense-text {
+    color: #dc4c4c !important;
+}
+
+.budget-text {
+    color: #23969e !important;
+}
+
+/* White Dashboard Sections */
+.dashboard-card {
+    background: white;
+    padding: 16px;
+    border-radius: 9px;
+    margin-bottom: 15px;
+}
+
+    .dashboard-card h5 {
+        font-size: 18px;
+        margin-bottom: 22px;
+        font-weight: 600;
+    }
+
+/* Simple Monthly Bar Chart */
+.simple-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 12px;
+    min-height: 130px;
+}
+
+.chart-month {
+    flex: 1;
+    text-align: center;
+    color: #718096;
+}
+
+.chart-bars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 5px;
+    height: 100px;
+}
+
+.income-bar,
+.expense-bar {
+    width: 35%;
+    max-width: 42px;
+    min-width: 12px;
+    border-radius: 2px;
+}
+
+.income-bar {
+    background: #238f96;
+}
+
+.expense-bar {
+    background: #eba23b;
+}
+
+.chart-month span {
+    display: block;
+    margin-top: 6px;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    color: #718096;
+    font-size: 14px;
+}
+
+    .chart-legend span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+.legend-income,
+.legend-expense {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.legend-income {
+    background: #238f96;
+}
+
+.legend-expense {
+    background: #eba23b;
+}
+
+/* Recent Transactions */
+.recent-transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 0;
+    border-bottom: 1px solid #edf0f2;
+    gap: 10px;
+}
+
+    .recent-transaction:last-child {
+        border-bottom: none;
+        padding-bottom: 10px;
+    }
+
+    .recent-transaction span {
+        color: #718096;
+    }
+
+    .recent-transaction strong {
+        white-space: nowrap;
+    }
+
+.dashboard-note {
+    color: #718096;
+    font-size: 14px;
+}
+
+/* Mobile Layout */
+@media (max-width: 576px) {
+    .pfm-dashboard {
+        padding: 10px;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+    }
+
+        .dashboard-header h2 {
+            font-size: 21px;
+        }
+
+    .dashboard-create-btn {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .summary-card {
+        padding: 12px;
+    }
+
+        .summary-card h4 {
+            font-size: 18px;
+        }
+
+    .simple-chart {
+        gap: 5px;
+    }
+}
+/* PFM Authentication pages */
+
+.pfm-auth-body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 30px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e7f9f8, #f8fbfc);
+    color: #14213d;
+    font-family: Arial, sans-serif;
+}
+
+.pfm-auth-shell {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 650px;
+    padding: 35px 50px;
+    border: 1px solid #b9eeea;
+    border-radius: 26px;
+    background: #ffffff;
+    box-shadow: 0 15px 45px rgba(20, 70, 80, 0.08);
+}
+
+.pfm-auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.pfm-auth-logo {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: #19b8b0;
+    color: white;
+    font-size: 23px;
+}
+
+.pfm-auth-brand strong,
+.pfm-auth-brand small {
+    display: block;
+}
+
+.pfm-auth-brand strong {
+    font-size: 21px;
+}
+
+.pfm-auth-brand small {
+    color: #718096;
+    font-size: 12px;
+}
+
+.pfm-auth-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 45px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pfm-auth-form {
+    padding: 28px;
+    border: 1px solid #c6eeeb;
+    border-radius: 22px;
+    background: #fff;
+}
+
+    .pfm-auth-form h1 {
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 29px;
+        font-weight: 700;
+    }
+
+.pfm-auth-subtitle {
+    margin-bottom: 25px;
+    color: #7a8798;
+    text-align: center;
+    font-size: 14px;
+}
+
+.pfm-auth-field {
+    margin-bottom: 16px;
+}
+
+    .pfm-auth-field label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+.pfm-auth-input {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #dbe5e9;
+    border-radius: 11px;
+    outline: none;
+    background: #f8fafb;
+}
+
+    .pfm-auth-input:focus {
+        border-color: #19b8b0;
+        box-shadow: 0 0 0 3px rgba(25, 184, 176, 0.12);
+    }
+
+.pfm-auth-button {
+    width: 100%;
+    min-height: 49px;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 11px;
+    background: #19b8b0;
+    color: white;
+    font-weight: 700;
+}
+
+    .pfm-auth-button:hover {
+        background: #109b95;
+    }
+
+.pfm-auth-links {
+    margin-top: 20px;
+    text-align: center;
+    color: #7a8798;
+    font-size: 13px;
+}
+
+    .pfm-auth-links a {
+        color: #078e89;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .pfm-auth-links a:hover {
+            text-decoration: underline;
+        }
+
+.pfm-auth-illustration {
+    padding: 20px;
+    text-align: center;
+}
+
+.pfm-auth-illustration-icon {
+    width: 150px;
+    height: 150px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: #e1f8f6;
+    color: #14aaa4;
+    font-size: 72px;
+}
+
+.pfm-auth-illustration h2 {
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.pfm-auth-illustration p {
+    max-width: 320px;
+    margin: 12px auto;
+    color: #718096;
+    line-height: 1.7;
+}
+
+.pfm-auth-footer {
+    margin-top: 35px;
+    color: #8793a4;
+    text-align: center;
+    font-size: 12px;
+}
+
+.pfm-auth-validation {
+    display: block;
+    margin-top: 5px;
+    color: #c0392b;
+    font-size: 12px;
+}
+
+@media (max-width: 760px) {
+    .pfm-auth-body {
+        padding: 15px;
+    }
+
+    .pfm-auth-shell {
+        min-height: auto;
+        padding: 25px 18px;
+    }
+
+    .pfm-auth-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .pfm-auth-form {
+        padding: 22px 18px;
+    }
+
+    .pfm-auth-illustration-icon {
+        width: 100px;
+        height: 100px;
+        font-size: 48px;
+    }
+}
+
+/* =========================================
+   PFM DASHBOARD - MAIN LAYOUT
+========================================= */
+.pfm-dashboard {
+    padding: 24px;
+    background: #f3f6fa;
+    min-height: 100vh;
+    color: #172b4d;
+}
+
+.pfm-dashboard * {
+    box-sizing: border-box;
+}
+
+.pfm-dashboard h2,
+.pfm-dashboard h3,
+.pfm-dashboard h4,
+.pfm-dashboard h5,
+.pfm-dashboard p {
+    margin-top: 0;
+}
+
+.pfm-dashboard a {
+    text-decoration: none;
+}
+
+/* =========================================
+   WELCOME BANNER
+========================================= */
+
+.pfm-welcome-banner {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    overflow: hidden;
+    padding: 32px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    background: linear-gradient(120deg, #142d4e, #214f75);
+    color: #ffffff;
+    box-shadow: 0 12px 28px rgba(20, 45, 78, 0.14);
+}
+
+.pfm-welcome-content {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+}
+
+.pfm-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 26px;
+}
+
+/* Dashboard logo - separate from sidebar logo */
+.pfm-brand-logo {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #19b8b0;
+    color: #ffffff;
+    font-size: 28px;
+}
+
+.pfm-brand-logo i {
+    color: #ffffff;
+    line-height: 1;
+}
+.pfm-brand h4 {
+    margin-bottom: 3px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.pfm-brand span {
+    color: #d5e3f5;
+    font-size: 13px;
+}
+
+.pfm-welcome-content > h2 {
+    margin-bottom: 12px;
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 750;
+    line-height: 1.25;
+    color: #ffffff;
+}
+
+.pfm-welcome-content > p {
+    max-width: 570px;
+    margin-bottom: 22px;
+    color: #d5e3f5;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.pfm-welcome-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pfm-primary-btn,
+.pfm-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 44px;
+    padding: 11px 17px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.pfm-primary-btn {
+    background: #ffffff;
+    color: #142d4e;
+}
+
+    .pfm-primary-btn:hover {
+        background: #e8f0f8;
+        color: #142d4e;
+        transform: translateY(-2px);
+    }
+
+.pfm-secondary-btn {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: #168a80;
+    color: #ffffff;
+}
+
+    .pfm-secondary-btn:hover {
+        background: #11766d;
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+
+/* Decorative finance illustration */
+
+.pfm-welcome-art {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 190px;
+    height: 190px;
+    margin: 0 18px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+    .pfm-welcome-art > i {
+        font-size: 100px;
+        color: #ffffff;
+    }
+
+.pfm-art-coin {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 3px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    background: #f6c85f;
+    color: #142d4e;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.coin-one {
+    top: 8px;
+    right: 10px;
+}
+
+.coin-two {
+    bottom: 12px;
+    left: 4px;
+}
+
+.coin-three {
+    right: 0;
+    bottom: 28px;
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+}
+
+/* =========================================
+   SECTION HEADINGS
+========================================= */
+
+.pfm-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 28px 0 17px;
+}
+
+    .pfm-section-heading h3 {
+        margin-bottom: 5px;
+        color: #172b4d;
+        font-size: 21px;
+        font-weight: 750;
+    }
+
+    .pfm-section-heading p {
+        margin-bottom: 0;
+        color: #748094;
+        font-size: 13px;
+    }
+
+/* =========================================
+   SUMMARY CARDS
+========================================= */
+
+.dashboard-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.pfm-dashboard .summary-card {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid #e9edf4;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 5px 18px rgba(24, 44, 74, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .pfm-dashboard .summary-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(24, 44, 74, 0.08);
+    }
+
+.pfm-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.pfm-dashboard .summary-card p {
+    margin-bottom: 10px;
+    color: #748094;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pfm-dashboard .summary-card h4 {
+    margin-bottom: 0;
+    overflow-wrap: anywhere;
+    color: #172b4d;
+    font-size: clamp(18px, 1.8vw, 25px);
+    font-weight: 750;
+}
+
+.pfm-card-icon,
+.pfm-module-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    font-size: 21px;
+}
+
+.pfm-card-caption {
+    display: block;
+    margin-top: 16px;
+    color: #8994a5;
+    font-size: 12px;
+}
+
+.blue-icon {
+    background: #e8f1ff;
+    color: #3678c7;
+}
+
+.green-icon {
+    background: #e4f7ed;
+    color: #15966a;
+}
+
+.orange-icon {
+    background: #fff0e3;
+    color: #d97732;
+}
+
+.purple-icon {
+    background: #f0eaff;
+    color: #8054d6;
+}
+
+.income-text {
+    color: #15966a !important;
+}
+
+.expense-text {
+    color: #d94c4c !important;
+}
+
+.budget-text {
+    color: #8054d6 !important;
+}
+
+/* =========================================
+   MODULE CARDS
+========================================= */
+
+.pfm-module-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.pfm-module-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+    border: 1px solid #e9edf4;
+    border-radius: 15px;
+    background: #ffffff;
+    color: #172b4d;
+    box-shadow: 0 5px 18px rgba(24, 44, 74, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .pfm-module-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(24, 44, 74, 0.09);
+        color: #172b4d;
+    }
+
+    .pfm-module-card h5 {
+        margin: 17px 0 8px;
+        font-size: 16px;
+        font-weight: 750;
+    }
+
+    .pfm-module-card p {
+        flex: 1;
+        margin-bottom: 17px;
+        color: #748094;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .pfm-module-card > span {
+        color: #3678c7;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+        .pfm-module-card > span i {
+            margin-left: 4px;
+            transition: margin-left 0.2s ease;
+        }
+
+    .pfm-module-card:hover > span i {
+        margin-left: 9px;
+    }
+
+/* =========================================
+   RECENT TRANSACTIONS AND SUMMARY
+========================================= */
+
+.pfm-dashboard .dashboard-card.pfm-content-card {
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #e9edf4;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 5px 18px rgba(24, 44, 74, 0.04);
+}
+
+.pfm-content-card .pfm-section-heading {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.pfm-view-link {
+    color: #3678c7;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+    .pfm-view-link:hover {
+        color: #214f75;
+    }
+
+.pfm-dashboard .recent-transaction {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #edf0f5;
+}
+
+    .pfm-dashboard .recent-transaction:last-child {
+        border-bottom: none;
+    }
+
+.pfm-transaction-info {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 13px;
+}
+
+.pfm-transaction-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    font-size: 19px;
+}
+
+.pfm-transaction-info strong {
+    display: block;
+    overflow-wrap: anywhere;
+    color: #263852;
+    font-size: 14px;
+}
+
+.pfm-transaction-info small {
+    display: block;
+    margin-top: 5px;
+    color: #8994a5;
+    font-size: 12px;
+}
+
+.pfm-dashboard .recent-transaction > strong {
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.pfm-summary-table {
+    margin-bottom: 0;
+}
+
+    .pfm-summary-table thead th {
+        padding: 14px;
+        border-bottom: 1px solid #e9edf4;
+        background: #f7f9fc;
+        color: #748094;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .pfm-summary-table tbody td {
+        padding: 15px 14px;
+        border-bottom: 1px solid #edf0f5;
+        color: #263852;
+        font-size: 13px;
+        vertical-align: middle;
+    }
+
+    .pfm-summary-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 1200px) {
+    .dashboard-summary,
+    .pfm-module-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pfm-welcome-art {
+        width: 150px;
+        height: 150px;
+        margin: 0;
+    }
+
+        .pfm-welcome-art > i {
+            font-size: 78px;
+        }
+}
+
+@media (max-width: 768px) {
+    .pfm-dashboard {
+        padding: 14px;
+    }
+
+    .pfm-welcome-banner {
+        padding: 23px;
+    }
+
+    .pfm-welcome-art {
+        display: none;
+    }
+
+    .pfm-brand {
+        margin-bottom: 22px;
+    }
+
+    .pfm-welcome-content > h2 {
+        font-size: 25px;
+    }
+
+    .dashboard-summary,
+    .pfm-module-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .pfm-dashboard .summary-card,
+    .pfm-module-card {
+        padding: 19px;
+    }
+
+    .pfm-section-heading {
+        align-items: flex-start;
+    }
+
+    .pfm-dashboard .dashboard-card.pfm-content-card {
+        padding: 17px;
+    }
+}
+
+@media (max-width: 420px) {
+    .pfm-welcome-actions {
+        flex-direction: column;
+    }
+
+    .pfm-primary-btn,
+    .pfm-secondary-btn {
+        width: 100%;
+    }
+
+    .pfm-dashboard .summary-card h4 {
+        font-size: 20px;
+    }
+}
+
+
+/* Fix dashboard layout with the existing sidebar */
+.pfm-dashboard {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 24px;
+    overflow-x: hidden;
+}
+
+/* Prevent dashboard content from pushing into the sidebar */
+.pfm-dashboard .pfm-welcome-banner {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Keep welcome text inside its available space */
+.pfm-dashboard .pfm-welcome-content {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Keep the dashboard cards within the main content area */
+.pfm-dashboard .dashboard-summary,
+.pfm-dashboard .pfm-module-grid {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Avoid unwanted horizontal scrolling on smaller screens */
+@media (max-width: 768px) {
+    .pfm-dashboard {
+        padding: 14px;
+    }
+
+        .pfm-dashboard .pfm-welcome-banner {
+            padding: 22px;
+        }
+}
+/* Main page content beside the sidebar */
+.pfm-content {
+    min-width: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Dashboard page container */
+.pfm-page-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+    /* Keep dashboard within the main content area */
+    .pfm-page-container .pfm-dashboard {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }

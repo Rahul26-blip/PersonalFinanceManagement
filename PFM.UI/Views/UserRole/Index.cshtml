@@ -1,0 +1,98 @@
+﻿
+@model List<PFM.UI.Models.UserRoleModel>
+
+@{
+    ViewData["Title"] = "User Roles";
+}
+
+<div class="pfm-page-toolbar">
+    <h2>User Roles</h2>
+    <a asp-action="Create" class="pfm-create-btn">
+        <i class="bi bi-plus-lg"></i> Assign Role
+    </a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>User Role ID</th>
+                    <th>User ID</th>
+                    <th>Role ID</th>
+                    <th>Active</th>
+                    <th>Created On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.UserRoleId</td>
+                            <td>@item.UserId</td>
+                            <td>@item.RoleId</td>
+                            <td>
+                                <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
+                                    @(item.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td>@item.CreatedOn.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a asp-action="Edit" asp-route-Id="@item.UserRoleId"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteUserRole-@item.UserRoleId">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+                            No user roles found. Click Assign Role to add one.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="modal fade" id="deleteUserRole-@item.UserRoleId" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete User Role</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to remove this role from the user?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="Id" value="@item.UserRoleId" />
+                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

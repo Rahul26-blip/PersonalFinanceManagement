@@ -1,0 +1,111 @@
+﻿```cshtml
+@model PFM.UI.Models.DebtModel
+
+@{
+    ViewData["Title"] = "Edit Debt";
+}
+
+<div class="pfm-page-toolbar">
+    <h2>Edit Debt</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        ← Back to Debts
+    </a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="card-body p-4">
+
+        <form asp-action="Edit" method="post" class="pfm-form">
+
+            @* Keep the record ID and creation date *@
+            <input asp-for="DebtsId" type="hidden" />
+            <input asp-for="CreatedOn" type="hidden" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3"></div>
+
+            <div class="row g-3">
+
+                @* Column 1: User ID *@
+                <div class="col-md-6">
+                    <label asp-for="UserId" class="form-label">User ID</label>
+                    <input asp-for="UserId" type="number" class="form-control" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                @* Column 2: Debt Name *@
+                <div class="col-md-6">
+                    <label asp-for="DebtsName" class="form-label">Debt Name</label>
+                    <input asp-for="DebtsName" class="form-control" />
+                    <span asp-validation-for="DebtsName" class="text-danger"></span>
+                </div>
+
+                @* Column 3: Total Amount *@
+                <div class="col-md-6">
+                    <label asp-for="ToltalAmount" class="form-label">Total Amount</label>
+                    <input asp-for="ToltalAmount" type="number" class="form-control" />
+                    <span asp-validation-for="ToltalAmount" class="text-danger"></span>
+                </div>
+
+                @* Column 4: Remaining Amount *@
+                <div class="col-md-6">
+                    <label asp-for="RemainingAmount" class="form-label">Remaining Amount</label>
+                    <input asp-for="RemainingAmount" type="number" class="form-control" />
+                    <span asp-validation-for="RemainingAmount" class="text-danger"></span>
+                </div>
+
+                @* Column 5: Interest Rate *@
+                <div class="col-md-6">
+                    <label asp-for="InterestRate" class="form-label">Interest Rate (%)</label>
+                    <input asp-for="InterestRate" type="number" class="form-control" />
+                    <span asp-validation-for="InterestRate" class="text-danger"></span>
+                </div>
+
+                @* Column 6: Due Date *@
+                <div class="col-md-6">
+                    <label asp-for="DueDate" class="form-label">Due Date</label>
+                    <input asp-for="DueDate" type="date" class="form-control" />
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+
+                @* Column 7: Paid Status *@
+                <div class="col-md-6">
+                    <label asp-for="IsPaid" class="form-label">Paid Status</label>
+                    <div class="form-check form-switch">
+                        <input asp-for="IsPaid" class="form-check-input" />
+                        <label asp-for="IsPaid" class="form-check-label">
+                            Debt fully paid
+                        </label>
+                    </div>
+                </div>
+
+                @* Column 8: Active Status *@
+                <div class="col-md-6">
+                    <label asp-for="IsActive" class="form-label">Status</label>
+                    <div class="form-check form-switch">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label">
+                            Active
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="d-flex justify-content-end gap-2">
+                <a asp-action="Index" class="btn btn-light">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    ✓ Update Debt
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+```

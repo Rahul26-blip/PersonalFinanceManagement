@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Personal Finance Management</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+</head>
+<body class="pfm-auth-body">
+
+    <main class="pfm-auth-shell">
+        <header class="pfm-auth-brand">
+            <span class="pfm-auth-logo">
+                <i class="bi bi-wallet2"></i>
+            </span>
+
+            <span>
+                <strong>PFM</strong>
+                <small>Personal Finance Management</small>
+            </span>
+        </header>
+
+        @RenderBody()
+
+        <footer class="pfm-auth-footer">
+            Manage your money. Build your future.
+        </footer>
+    </main>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿@model PFM.UI.Models.PermissionModel
+@{
+    ViewData["Title"] = "Edit Permission";
+}
+
+<div class="pfm-page-toolbar">
+    <h2>Edit Permission</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">← Back to Permissions</a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="card-body p-4">
+        <form asp-action="Edit" method="post" class="pfm-form">
+            <input asp-for="PermissionId" type="hidden" />
+            <input asp-for="CreatedOn" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-12">
+                    <label asp-for="PermissionName" class="form-label">Permission Name</label>
+                    <input asp-for="PermissionName" class="form-control" />
+                    <span asp-validation-for="PermissionName" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="PermissionCode" class="form-label">Permission Code</label>
+                    <input asp-for="PermissionCode" class="form-control" />
+                    <span asp-validation-for="PermissionCode" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Status</label>
+                    <div class="form-check form-switch">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <div class="d-flex justify-content-end gap-2">
+                <a asp-action="Index" class="btn btn-light">Cancel</a>
+                <button type="submit" class="btn btn-primary">✓ Update Permission</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

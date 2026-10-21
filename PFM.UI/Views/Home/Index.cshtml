@@ -1,0 +1,307 @@
+﻿
+@model PFM.UI.Models.DashboardModel
+
+@{
+    ViewData["Title"] = "PFM.Tech";
+}
+
+<div class="pfm-dashboard">
+
+    <!-- Welcome Banner -->
+    <div class="pfm-welcome-banner">
+        <div class="pfm-welcome-content">
+            <div class="pfm-brand">
+                <div class="pfm-brand-logo">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+                <div>
+                    <h4>PFM.Tech</h4>
+                    <span>Personal Finance Manager</span>
+                </div>
+            </div>
+
+            <h2>Welcome to your financial workspace</h2>
+
+            <p>
+                Manage accounts, track spending, plan budgets,
+                and work towards your savings goals in one place.
+            </p>
+
+            <div class="pfm-welcome-actions">
+                <a asp-controller="Account"
+                   asp-action="Index"
+                   class="pfm-primary-btn">
+                    <i class="bi bi-wallet2"></i>
+                    Explore Accounts
+                </a>
+
+                <a asp-controller="Transaction"
+                   asp-action="Create"
+                   class="pfm-secondary-btn">
+                    <i class="bi bi-plus-circle"></i>
+                    Add Transaction
+                </a>
+            </div>
+        </div>
+
+        <div class="pfm-welcome-art">
+            <i class="bi bi-piggy-bank"></i>
+            <div class="pfm-art-coin coin-one">₹</div>
+            <div class="pfm-art-coin coin-two">₹</div>
+            <div class="pfm-art-coin coin-three">₹</div>
+        </div>
+    </div>
+
+    <!-- API Error -->
+    @if (ViewBag.DashboardError != null)
+    {
+        <div class="alert alert-danger">
+            <strong>Dashboard Error:</strong>
+            @ViewBag.DashboardError
+        </div>
+    }
+
+    <!-- Financial Overview -->
+    <div class="pfm-section-heading">
+        <div>
+            <h3>Your financial overview</h3>
+            <p>Understand your money at a glance.</p>
+        </div>
+    </div>
+
+    <div class="dashboard-summary">
+
+        <div class="summary-card pfm-balance-card">
+            <div class="pfm-card-top">
+                <div>
+                    <p>Total Balance</p>
+                    <h4>₹@Model.TotalBalance.ToString("N2")</h4>
+                </div>
+                <div class="pfm-card-icon blue-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+            </div>
+            <span class="pfm-card-caption">Across your accounts</span>
+        </div>
+
+        <div class="summary-card">
+            <div class="pfm-card-top">
+                <div>
+                    <p>Monthly Income</p>
+                    <h4 class="income-text">
+                        ₹@Model.MonthlyIncome.ToString("N2")
+                    </h4>
+                </div>
+                <div class="pfm-card-icon green-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+            </div>
+            <span class="pfm-card-caption">Income this month</span>
+        </div>
+
+        <div class="summary-card">
+            <div class="pfm-card-top">
+                <div>
+                    <p>Monthly Expenses</p>
+                    <h4 class="expense-text">
+                        ₹@Model.MonthlyExpenses.ToString("N2")
+                    </h4>
+                </div>
+                <div class="pfm-card-icon orange-icon">
+                    <i class="bi bi-graph-down-arrow"></i>
+                </div>
+            </div>
+            <span class="pfm-card-caption">Spending this month</span>
+        </div>
+
+        <div class="summary-card">
+            <div class="pfm-card-top">
+                <div>
+                    <p>Remaining Budget</p>
+                    <h4 class="budget-text">
+                        ₹@Model.RemainingBudget.ToString("N2")
+                    </h4>
+                </div>
+                <div class="pfm-card-icon purple-icon">
+                    <i class="bi bi-piggy-bank"></i>
+                </div>
+            </div>
+            <span class="pfm-card-caption">Available budget</span>
+        </div>
+
+    </div>
+
+    <!-- Explore PFM Modules -->
+    <div class="pfm-section-heading">
+        <div>
+            <h3>Explore your PFM</h3>
+            <p>Everything you need to manage your finances.</p>
+        </div>
+    </div>
+
+    <div class="pfm-module-grid">
+
+        <a asp-controller="Account" asp-action="Index"
+           class="pfm-module-card">
+            <div class="pfm-module-icon blue-icon">
+                <i class="bi bi-bank"></i>
+            </div>
+            <h5>Accounts</h5>
+            <p>Manage your financial accounts and balances.</p>
+            <span>Open module <i class="bi bi-arrow-right"></i></span>
+        </a>
+
+        <a asp-controller="Transaction" asp-action="Index"
+           class="pfm-module-card">
+            <div class="pfm-module-icon green-icon">
+                <i class="bi bi-arrow-left-right"></i>
+            </div>
+            <h5>Transactions</h5>
+            <p>Track income and expenses in one place.</p>
+            <span>Open module <i class="bi bi-arrow-right"></i></span>
+        </a>
+
+        <a asp-controller="Budget" asp-action="Index"
+           class="pfm-module-card">
+            <div class="pfm-module-icon orange-icon">
+                <i class="bi bi-calendar2-check"></i>
+            </div>
+            <h5>Budgets</h5>
+            <p>Plan spending and monitor your limits.</p>
+            <span>Open module <i class="bi bi-arrow-right"></i></span>
+        </a>
+
+        <a asp-controller="SavingGole" asp-action="Index"
+           class="pfm-module-card">
+            <div class="pfm-module-icon purple-icon">
+                <i class="bi bi-bullseye"></i>
+            </div>
+            <h5>Savings Goals</h5>
+            <p>Follow your progress towards saving targets.</p>
+            <span>Open module <i class="bi bi-arrow-right"></i></span>
+        </a>
+
+        <a asp-controller="Debt" asp-action="Index"
+           class="pfm-module-card">
+            <div class="pfm-module-icon orange-icon">
+                <i class="bi bi-credit-card"></i>
+            </div>
+            <h5>Debts</h5>
+            <p>Keep track of debts and repayments.</p>
+            <span>Open module <i class="bi bi-arrow-right"></i></span>
+        </a>
+
+        <a asp-controller="Investment" asp-action="Index"
+           class="pfm-module-card">
+            <div class="pfm-module-icon green-icon">
+                <i class="bi bi-bar-chart-line"></i>
+            </div>
+            <h5>Investments</h5>
+            <p>Keep your investment information organized.</p>
+            <span>Open module <i class="bi bi-arrow-right"></i></span>
+        </a>
+
+        <a asp-controller="Category"asp-action="Index" class="pfm-module-card">
+            <div class="pfm-module-icon blue-icon"> <i class="bi bi-tags"></i> </div>
+            <h5>Categories</h5>
+            <p>Organize transactions by category.</p>
+            <span>Open module <i class="bi bi-arrow-right"></i></span>
+        </a>
+
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="dashboard-card pfm-content-card">
+        <div class="pfm-section-heading">
+            <div>
+                <h3>Recent Transactions</h3>
+                <p>Your latest recorded financial activity.</p>
+            </div>
+
+            <a asp-controller="Transaction" asp-action="Index"
+               class="pfm-view-link">
+                View all <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        @if (Model.RecentTransactions != null &&
+             Model.RecentTransactions.Any())
+        {
+            @foreach (var transaction in Model.RecentTransactions)
+            {
+                var isIncome = string.Equals(
+                    transaction.TransactionType,
+                    "Income",
+                    StringComparison.OrdinalIgnoreCase);
+
+                <div class="recent-transaction">
+                    <div class="pfm-transaction-info">
+                        <div class="pfm-transaction-icon @(isIncome ? "green-icon" : "orange-icon")">
+                            <i class="bi @(isIncome ? "bi-arrow-down-left" : "bi-arrow-up-right")"></i>
+                        </div>
+                        <div>
+                            <strong>@transaction.Description</strong>
+                            <small>
+                                @transaction.TransactionDate.ToString("dd-MM-yyyy")
+                            </small>
+                        </div>
+                    </div>
+
+                    <strong class="@(isIncome ? "income-text" : "expense-text")">
+                        @(isIncome ? "+ " : "− ")
+                        ₹@transaction.Amount.ToString("N2")
+                    </strong>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No transactions found yet. Add a transaction to start tracking your finances.</p>
+        }
+    </div>
+
+    <!-- Monthly Summary -->
+    <div class="dashboard-card pfm-content-card">
+        <div class="pfm-section-heading">
+            <div>
+                <h3>Monthly Summary</h3>
+                <p>Compare your income and expenses.</p>
+            </div>
+        </div>
+
+        @if (Model.MonthlySummary != null &&
+             Model.MonthlySummary.Any())
+        {
+            <div class="table-responsive">
+                <table class="table pfm-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Income</th>
+                            <th>Expenses</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var month in Model.MonthlySummary)
+                        {
+                            <tr>
+                                <td>@month.Month</td>
+                                <td class="income-text">
+                                    ₹@month.Income.ToString("N2")
+                                </td>
+                                <td class="expense-text">
+                                    ₹@month.Expenses.ToString("N2")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p>No monthly summary data found yet.</p>
+        }
+    </div>
+
+</div>

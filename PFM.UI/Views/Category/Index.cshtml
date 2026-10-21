@@ -1,0 +1,94 @@
+﻿@model List<PFM.UI.Models.CategoryModel>
+
+<div class="pfm-page-toolbar">
+    <h2>Categories</h2>
+    <a asp-action="Create" class="pfm-create-btn">
+        <i class="bi bi-plus-lg"></i> Create Category
+    </a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Category ID</th>
+                    <th>Category Name</th>
+                    <th>Category Code</th>
+                    <th>User ID</th>
+                    <th>Active</th>
+                    <th>Created On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CategoriesId</td>
+                            <td>@item.CategoriesName</td>
+                            <td><span class="badge bg-light text-dark">@item.CategoriesCode</span></td>
+                            <td>@item.UserId</td>
+                            <td>
+                                <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
+                                    @(item.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td>@item.CreatedOn.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a asp-action="Edit" asp-route-Id="@item.CategoriesId"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteCategory-@item.CategoriesId">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            No categories found. Create your first category.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="modal fade" id="deleteCategory-@item.CategoriesId" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Delete category <strong>@item.CategoriesName</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="Id" value="@item.CategoriesId" />
+                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

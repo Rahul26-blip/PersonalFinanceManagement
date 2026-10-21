@@ -1,0 +1,77 @@
+﻿@model PFM.UI.Models.TransactionModel
+@{
+    ViewData["Title"] = "Edit Transaction";
+}
+
+<div class="pfm-page-toolbar">
+    <h2>Edit Transaction</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">← Back to Transactions</a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="card-body p-4">
+        <form asp-action="Edit" method="post" class="pfm-form">
+            <input asp-for="TransactionId" type="hidden" />
+            <input asp-for="CreatedOn" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-12">
+                    <label asp-for="UserId" class="form-label">User ID</label>
+                    <input asp-for="UserId" type="number" class="form-control" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="AccountId" class="form-label">Account ID</label>
+                    <input asp-for="AccountId" type="number" class="form-control" />
+                    <span asp-validation-for="AccountId" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="CategoriesId" class="form-label">Category ID</label>
+                    <input asp-for="CategoriesId" type="number" class="form-control" />
+                    <span asp-validation-for="CategoriesId" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="TransactionType" class="form-label">Transaction Type</label>
+                    <select asp-for="TransactionType" class="form-select">
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                    <span asp-validation-for="TransactionType" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Amount" class="form-label">Amount</label>
+                    <input asp-for="Amount" type="number" class="form-control" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="TransactionDate" class="form-label">Transaction Date</label>
+                    <input asp-for="TransactionDate" type="date" class="form-control" />
+                    <span asp-validation-for="TransactionDate" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Status</label>
+                    <div class="form-check form-switch">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <div class="d-flex justify-content-end gap-2">
+                <a asp-action="Index" class="btn btn-light">Cancel</a>
+                <button type="submit" class="btn btn-primary">✓ Update Transaction</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

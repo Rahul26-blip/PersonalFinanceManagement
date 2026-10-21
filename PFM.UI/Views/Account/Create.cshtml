@@ -1,0 +1,72 @@
+﻿@model PFM.UI.Models.AccountModel
+
+<div class="pfm-page-toolbar">
+    <h2>Create Account</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Accounts
+    </a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="card-body p-4">
+        <p class="text-muted mb-4">Enter the account information below.</p>
+
+        <form asp-action="Create" method="post" class="pfm-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="UserId" class="form-label">UserId</label>
+                    <input asp-for="UserId" class="form-control" placeholder="e.g. User Id" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="AccountName" class="form-label">Account Name</label>
+                    <input asp-for="AccountName" class="form-control" placeholder="e.g. SBI Savings Account" />
+                    <span asp-validation-for="AccountName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="AccountType" class="form-label">Account Type</label>
+                    <select asp-for="AccountType" class="form-select">
+                        <option value="">Select account type</option>
+                        <option value="Bank">Bank</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Wallet">Wallet</option>
+                        <option value="Card">Card</option>
+                    </select>
+                    <span asp-validation-for="AccountType" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="CurrentBalance" class="form-label">Current Balance</label>
+                    <input asp-for="CurrentBalance" type="number" min="0"
+                           class="form-control" placeholder="Enter balance" />
+                    <span asp-validation-for="CurrentBalance" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label d-block">Account Status</label>
+                    <div class="form-check form-switch mt-2">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="d-flex gap-2 justify-content-end">
+                <a asp-action="Index" class="btn btn-light">Cancel</a>
+                <button type="submit" class="btn btn-primary px-4">
+                    <i class="bi bi-check-lg"></i> Save Account
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

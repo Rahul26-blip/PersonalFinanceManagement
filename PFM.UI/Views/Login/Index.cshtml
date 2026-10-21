@@ -1,0 +1,69 @@
+﻿@model PFM.UI.Models.LoginModel
+
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Login";
+}
+
+<div class="pfm-auth-content">
+
+    <section class="pfm-auth-form">
+
+        <h1>Welcome Back</h1>
+
+        <p class="pfm-auth-subtitle">
+            Sign in to manage your Finances.
+        </p>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-controller="Login" asp-action="Index" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="pfm-auth-validation"></div>
+            <div class="pfm-auth-field">  <label asp-for="UserCode">User Code</label>
+            <input asp-for="UserCode"  class="pfm-auth-input"  placeholder="Enter your User Code"  autocomplete="username" />
+            <span asp-validation-for="UserCode" class="pfm-auth-validation"></span>
+            </div>
+
+            <div class="pfm-auth-field">
+                <label asp-for="Password">Password</label>
+
+                <input asp-for="Password"class="pfm-auth-input"placeholder="Enter your password"autocomplete="current-password" />
+                <span asp-validation-for="Password"class="pfm-auth-validation"></span>
+            </div>
+
+            <button type="submit" class="pfm-auth-button"> <i class="bi bi-box-arrow-in-right me-2"></i> Login</button>
+        </form>
+        <div class="pfm-auth-links">New to Fin.Tech?<a asp-controller="Register" asp-action="Index">Create an account </a>
+        </div>
+    </section>
+
+    <section class="pfm-auth-illustration">
+
+        <div class="pfm-auth-illustration-icon">
+            <i class="bi bi-wallet2"></i>
+        </div>
+
+        <h2>Your money, under control.</h2>
+        <p>
+            Track accounts, manage expenses, plan budgets,
+            and work towards your savings goals in one place.
+        </p>
+        <p>
+            <i class="bi bi-shield-check me-1"></i> Secure
+            &nbsp;&nbsp;
+            <i class="bi bi-graph-up-arrow me-1"></i> Simple
+        </p>
+
+    </section>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

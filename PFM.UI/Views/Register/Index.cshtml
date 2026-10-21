@@ -1,0 +1,86 @@
+﻿@model PFM.UI.Models.RegisterModel
+
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="pfm-auth-content">
+
+    <section class="pfm-auth-form">
+
+        <h1>Create Account</h1>
+
+        <p class="pfm-auth-subtitle">
+            Start managing your finances today.
+        </p>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-controller="Register" asp-action="Index" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="pfm-auth-validation"></div>
+
+            <div class="pfm-auth-field">
+                <label asp-for="UserName">Full Name</label>
+                <input asp-for="UserName" class="pfm-auth-input" placeholder="Enter your full name" autocomplete="name" />
+                <span asp-validation-for="UserName" class="pfm-auth-validation"></span>
+            </div>
+
+            <div class="pfm-auth-field">
+                <label asp-for="UserCode">User Code</label>
+                <input asp-for="UserCode" class="pfm-auth-input" placeholder="Create a User Code" autocomplete="username" />
+                <span asp-validation-for="UserCode" class="pfm-auth-validation"></span>
+            </div>
+
+            <div class="pfm-auth-field">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" class="pfm-auth-input"  placeholder="Create a password"  autocomplete="new-password" />
+                <span asp-validation-for="Password"class="pfm-auth-validation"></span>
+            </div>
+
+            <div class="pfm-auth-field">
+                <label asp-for="ConfirmPassword">Confirm Password</label>
+                <input asp-for="ConfirmPassword"class="pfm-auth-input"placeholder="Enter your password again"autocomplete="new-password" />
+                <span asp-validation-for="ConfirmPassword" class="pfm-auth-validation"></span>
+            </div>
+
+            <button type="submit" class="pfm-auth-button">
+                <i class="bi bi-person-plus me-2"></i>
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="pfm-auth-links">
+            Already have an account?
+            <a asp-controller="Login" asp-action="Index">Login</a>
+        </div>
+
+    </section>
+
+    <section class="pfm-auth-illustration">
+
+        <div class="pfm-auth-illustration-icon">
+            <i class="bi bi-piggy-bank"></i>
+        </div>
+
+        <h2>Build better money habits.</h2>
+
+        <p>
+            Organize your finances, set savings goals, and take
+            control of your financial future.
+        </p>
+
+    </section>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

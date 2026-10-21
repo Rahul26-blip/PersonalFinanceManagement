@@ -1,0 +1,49 @@
+﻿@model PFM.UI.Models.UserRoleModel
+@{
+    ViewData["Title"] = "Edit User Role";
+}
+
+<div class="pfm-page-toolbar">
+    <h2>Edit User Role</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">← Back to User Roles</a>
+</div>
+
+<div class="pfm-list-card">
+    <div class="card-body p-4">
+        <form asp-action="Edit" method="post" class="pfm-form">
+            <input asp-for="UserRoleId" type="hidden" />
+            <input asp-for="CreatedOn" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-12">
+                    <label asp-for="UserId" class="form-label">User ID</label>
+                    <input asp-for="UserId" type="number" class="form-control" />
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="RoleId" class="form-label">Role ID</label>
+                    <input asp-for="RoleId" type="number" class="form-control" />
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Status</label>
+                    <div class="form-check form-switch">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <div class="d-flex justify-content-end gap-2">
+                <a asp-action="Index" class="btn btn-light">Cancel</a>
+                <button type="submit" class="btn btn-primary">✓ Update User Role</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
