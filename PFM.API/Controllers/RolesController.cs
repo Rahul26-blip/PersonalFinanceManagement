@@ -25,17 +25,7 @@ namespace PFM.API.Controllers
         [HttpGet("GetById/{Id}")]
         public IActionResult GetById(int Id, RoleDTO roleDTO)
         {
-            if (Id <= 0)
-            {
-                return BadRequest("Invalid Role Id.");
-            }
-
             var role = _roleServices.GetById(Id);
-
-            if (role == null)
-            {
-                return NotFound("Role not found.");
-            }
 
             return Ok(role);
 
@@ -51,17 +41,7 @@ namespace PFM.API.Controllers
         [HttpPut("Update/{Id}")]
         public IActionResult Update(int Id,[FromBody]RoleDTO roleDTO)
         {
-            if (roleDTO == null)
-            {
-                return BadRequest("Role data is required.");
-            }
-
             var existingRole = _roleServices.GetById(Id);
-
-            if (existingRole == null)
-            {
-                return NotFound("Role not found.");
-            }
 
              roleDTO.RoleId = Id;
             _roleServices.Update(roleDTO);

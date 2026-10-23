@@ -38,12 +38,9 @@ namespace PFM.Application.Services
                 expireMinutes = 120;
 
             // Create signing key
-            var securityKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(key));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
 
-            var credentials = new SigningCredentials(
-                securityKey,
-                SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials( securityKey,SecurityAlgorithms.HmacSha256);
 
             // Add user information to the token
             var claims = new List<Claim>

@@ -8,14 +8,12 @@ using PFM.Infrastructure.IRepository;
 using PFM.Infrastructure.Repository;
 using System.Text;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
-
 
 builder.Services.AddControllers();
 
@@ -34,9 +32,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             {
                 ValidateIssuerSigningKey = true,
 
-                IssuerSigningKey =
-                    new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(jwtKey)),
+                IssuerSigningKey =new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
 
                 ValidateIssuer = true,
                 ValidIssuer = jwtIssuer,
