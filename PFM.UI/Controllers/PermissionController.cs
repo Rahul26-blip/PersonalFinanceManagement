@@ -78,7 +78,6 @@ namespace PFM.UI.Controllers
             return RedirectToAction("Index");
         }
 
-
         [HttpPost]
         public IActionResult Delete(int Id)
         {

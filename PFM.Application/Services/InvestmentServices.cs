@@ -37,7 +37,10 @@ namespace PFM.Application.Services
         public InvestmentDTO GetById(int Id)
         {
             var investment = _repository.GetById(Id);
-
+            if (investment == null)
+            {
+                return null;
+            }
             return new InvestmentDTO
             {
                 InvestmentId = investment.InvestmentId,

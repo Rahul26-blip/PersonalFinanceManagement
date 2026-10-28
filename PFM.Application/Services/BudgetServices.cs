@@ -29,9 +29,9 @@ namespace PFM.Application.Services
 
             _budgetRepository.Create(budget);
         }
-        public void Update(BudgetDTO budgetDTO)
+        public void Update(BudgetDTO budgetDTO,int userId)
         {
-            Budget budget = _budgetRepository.GetById(budgetDTO.BudgetId);
+            var budget = _budgetRepository.GetById(budgetDTO.BudgetId,userId);
 
             if (budget == null)
             {
@@ -41,16 +41,16 @@ namespace PFM.Application.Services
             budget.UserId = budgetDTO.UserId;
             budget.CategoriesId = budgetDTO.CategoriesId;
             budget.Amount = budgetDTO.Amount;
-            budget.StartDate = budget.StartDate;
-            budget.EndDate = budget.EndDate;
+            budget.StartDate = budgetDTO.StartDate;
+            budget.EndDate = budgetDTO.EndDate;
             budget.IsActive = budgetDTO.IsActive;
             budget.UpdatedOn = DateTime.Now;
 
             _budgetRepository.Update(budget);
         }
-        public List<BudgetDTO> GetAll()
+        public List<BudgetDTO> GetAll(int userId)
         {
-            List<Budget> budgets = _budgetRepository.GetAll();
+            List<Budget> budgets = _budgetRepository.GetAll(userId);
 
             return budgets.Select(budget=>new BudgetDTO
             {
@@ -67,9 +67,15 @@ namespace PFM.Application.Services
             }).ToList();
         }
 
-        public BudgetDTO GetById(int Id)
+        public BudgetDTO GetById(int Id,int userId)
         {
-            var budget = _budgetRepository.GetById(Id);
+            var budget = _budgetRepository.GetById(Id,userId);
+
+            if (budget == null)
+            {
+                return null;
+            }
+
             return new BudgetDTO
             {
                 BudgetId = budget.BudgetId,

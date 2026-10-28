@@ -13,7 +13,28 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    // Define JWT Bearer authentication
+    options.AddSecurityDefinition("Bearer",
+        new Microsoft.OpenApi.OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Type = Microsoft.OpenApi.SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            In = Microsoft.OpenApi.ParameterLocation.Header,
+            Description = "Enter your JWT token here."
+        });
+
+    // Apply JWT authentication to Swagger endpoints
+    options.AddSecurityRequirement(document =>
+        new Microsoft.OpenApi.OpenApiSecurityRequirement
+        {
+            [new Microsoft.OpenApi.OpenApiSecuritySchemeReference(
+                "Bearer", document)] = new List<string>()
+        });
+});
 
 builder.Services.AddControllers();
 
@@ -23,27 +44,41 @@ builder.Services.AddDbContext<AppDbContext>(Options => Options.UseSqlServer
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+
         var jwtKey = builder.Configuration["Jwt:Key"];
         var jwtIssuer = builder.Configuration["Jwt:Issuer"];
         var jwtAudience = builder.Configuration["Jwt:Audience"];
 
-        options.TokenValidationParameters =
-            new TokenValidationParameters
+        if (string.IsNullOrWhiteSpace(jwtKey) ||
+            string.IsNullOrWhiteSpace(jwtIssuer) ||
+            string.IsNullOrWhiteSpace(jwtAudience))
+        {
+            throw new InvalidOperationException(
+                "JWT Key, Issuer, and Audience must be configured.");
+        }
+
+        builder.Services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
             {
-                ValidateIssuerSigningKey = true,
+                options.TokenValidationParameters =
+                    new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(jwtKey)),
 
-                IssuerSigningKey =new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+                        ValidateIssuer = true,
+                        ValidIssuer = jwtIssuer,
 
-                ValidateIssuer = true,
-                ValidIssuer = jwtIssuer,
+                        ValidateAudience = true,
+                        ValidAudience = jwtAudience,
 
-                ValidateAudience = true,
-                ValidAudience = jwtAudience,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+            });
 
-                ValidateLifetime = true,
-
-                ClockSkew = TimeSpan.Zero
-            };
     });
 //Account
 builder.Services.AddScoped<IAccountServices, AccountServices>();
@@ -93,9 +128,11 @@ var app = builder.Build();
 
 
 
-app.UseSwagger();
-app.UseSwaggerUI();
-
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();

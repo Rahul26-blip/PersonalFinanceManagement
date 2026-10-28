@@ -44,6 +44,7 @@ namespace PFM.Application.Services
             {
                 return null;
             }
+
             if (user.IsActive == false)
             {
                 return null;
@@ -56,7 +57,7 @@ namespace PFM.Application.Services
             {
                 return null;
             }
-            //JWT
+            
             string token = _jWTServices.GenerateToken(user.UserId,user.UserName,user.UserCode);
 
             return new LoginResponseDTO
@@ -92,6 +93,11 @@ namespace PFM.Application.Services
         {
             var user =_userRepository.GetById(id);
 
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found.");
+            }
+
             return new UserDTO
             {
                 UserId = user.UserId,
@@ -118,20 +124,24 @@ namespace PFM.Application.Services
 
             _userRepository.Create(user);
         }
+
         public void Update(UserDTO userDTO)
         {
-            
             var user = _userRepository.GetById(userDTO.UserId);
+            
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found.");
+            }
 
             user.UserName = userDTO.UserName;
-            user.UserCode=userDTO.UserCode;
-            user.UpdatedOn=DateTime.Now;
-            user.IsActive=userDTO.IsActive;
+            user.UserCode = userDTO.UserCode;
+            user.UpdatedOn = DateTime.Now;
+            user.IsActive = userDTO.IsActive;
             
-
             _userRepository.Update(user);
-
         }
+
         public void Delete(int Id)
         {
             _userRepository.Delete(Id);

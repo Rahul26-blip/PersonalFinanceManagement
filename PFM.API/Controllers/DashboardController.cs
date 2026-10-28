@@ -6,9 +6,10 @@ using PFM.Application.IServices;
 
 namespace PFM.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class DashboardController : ControllerBase
     {
         private readonly IDashboardServices _dashboardServices;

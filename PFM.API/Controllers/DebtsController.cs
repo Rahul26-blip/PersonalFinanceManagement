@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PFM.Application.DTO;
 using PFM.Application.IServices;
 
 namespace PFM.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DebtsController : ControllerBase

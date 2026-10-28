@@ -7,6 +7,7 @@ using System.Security.Cryptography.Pkcs;
 
 namespace PFM.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -46,9 +47,9 @@ namespace PFM.API.Controllers
         }
 
         [HttpGet("GetById/{Id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int Id)
         {
-            var userDTO = _userServices.GetById(id);
+            var userDTO = _userServices.GetById(Id);
 
             return Ok(userDTO);
         }

@@ -11,13 +11,13 @@ namespace PFM.Infrastructure.Repository
         {
             _context = context;
         }
-        public List<Budget> GetAll()
+        public List<Budget> GetAll(int userId)
         {
-            return _context.Budgets.ToList();
+            return _context.Budgets.Where(b => b.UserId == userId).ToList();
         }
-        public Budget GetById(int Id)
+        public Budget GetById(int Id,int userId)
         {
-            return _context.Budgets.FirstOrDefault(x => x.BudgetId == Id);
+            return _context.Budgets.FirstOrDefault(x => x.BudgetId == Id && x.UserId==userId);
         }
         public void Create(Budget budget)
         {

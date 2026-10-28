@@ -26,16 +26,15 @@ namespace PFM.Application.Services
 
             // Check configuration
             if (string.IsNullOrWhiteSpace(key))
-                throw new InvalidOperationException("JWT Key is missing.");
+            throw new InvalidOperationException("JWT Key is missing.");
 
             if (string.IsNullOrWhiteSpace(issuer))
-                throw new InvalidOperationException("JWT Issuer is missing.");
+            throw new InvalidOperationException("JWT Issuer is missing.");
 
             if (string.IsNullOrWhiteSpace(audience))
-                throw new InvalidOperationException("JWT Audience is missing.");
+            throw new InvalidOperationException("JWT Audience is missing.");
 
-            if (expireMinutes <= 0)
-                expireMinutes = 120;
+            if (expireMinutes <= 0)expireMinutes = 120;
 
             // Create signing key
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
@@ -51,10 +50,8 @@ namespace PFM.Application.Services
             };
 
             // Create token with matching issuer and audience
-            var token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: audience,
-                claims: claims,
+
+            var token = new JwtSecurityToken(issuer: issuer,audience: audience,claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(expireMinutes),
                 signingCredentials: credentials
             );

@@ -32,6 +32,12 @@ namespace PFM.Application.Services
         public UserRoleDTO GetById(int id)
         {
             var userrole = _repository.GetById(id);
+
+            if (userrole == null)
+            {
+                return null;
+            }
+
             return new UserRoleDTO
             {
                 UserRoleId = userrole.UserRoleId,
@@ -56,17 +62,25 @@ namespace PFM.Application.Services
         }
         public void Update(UserRoleDTO userRoleDTO)
         {
-            var userrole = _repository.GetById(userRoleDTO.UserRoleId);
+            // Get the existing record from the database.
+            var userRole = _repository.GetById(userRoleDTO.UserRoleId);
 
-            UserRole userRole = new UserRole();
+            // Check whether the record exists.
+            if (userRole == null)
+            {
+                throw new KeyNotFoundException("UserRole not found.");
+            }
+
+            // Update the existing object.
             userRole.UserId = userRoleDTO.UserId;
             userRole.RoleId = userRoleDTO.RoleId;
             userRole.IsActive = userRoleDTO.IsActive;
-            userRole.CreatedOn = userRoleDTO.CreatedOn;
-            userRole.UpdatedOn = userRoleDTO.UpdatedOn;
 
+            // Set the current update date and time.
+            userRole.UpdatedOn = DateTime.Now;
+
+            // Save the updated object.
             _repository.Update(userRole);
-
         }
         public void Delete(int Id)
         {

@@ -57,17 +57,29 @@ namespace PFM.Application.Services
 
             _rolePermissionRepository.Create(rolePermission);
         }
+
         public void Update(RolePermissionDTO rolePermissionDTO)
         {
-            var item = _rolePermissionRepository.GetById(rolePermissionDTO.RolePermissionId);
+            // Step 1: Find the existing RolePermission record
+            var item = _rolePermissionRepository.GetById(
+                rolePermissionDTO.RolePermissionId);
 
+            // Step 2: Check whether the record exists
+            if (item == null)
+            {
+                throw new KeyNotFoundException("RolePermission not found.");
+            }
+
+            // Step 3: Update its properties
             item.RoleId = rolePermissionDTO.RoleId;
             item.PermissionId = rolePermissionDTO.PermissionId;
             item.IsActive = rolePermissionDTO.IsActive;
             item.UpdatedOn = DateTime.Now;
 
+            // Step 4: Save through the repository
             _rolePermissionRepository.Update(item);
         }
+
         public void Delete(int Id)
         {
             _rolePermissionRepository.Delete(Id);

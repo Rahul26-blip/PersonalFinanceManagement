@@ -11,17 +11,20 @@ namespace PFM.UI.Controllers
         {
             _budgetServices = budgetServices;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
             var budgetmodel = _budgetServices.GetAll();
             return View(budgetmodel);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Create(BudgetModel budgetModel)
         {
@@ -33,12 +36,14 @@ namespace PFM.UI.Controllers
 
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public IActionResult Edit(int Id)
         {
             var budgetMode = _budgetServices.GetById(Id);
             return View(budgetMode);
         }
+
         [HttpPost]
         public IActionResult Edit(BudgetModel budgetModel)
         {
@@ -50,6 +55,7 @@ namespace PFM.UI.Controllers
 
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public IActionResult Delete(int Id)
         {

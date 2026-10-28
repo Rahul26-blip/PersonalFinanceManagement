@@ -37,6 +37,11 @@ namespace PFM.Infrastructure.Repository
         {
             var role = _context.Roles.FirstOrDefault(y => y.RoleId == id);
 
+            if (role == null)
+            {
+                throw new KeyNotFoundException("Role not found.");
+            }
+
             _context.Roles.Remove(role);
             _context.SaveChanges();
         }

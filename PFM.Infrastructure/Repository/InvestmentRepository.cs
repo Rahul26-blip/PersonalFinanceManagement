@@ -37,6 +37,10 @@ namespace PFM.Infrastructure.Repository
         public void Delete(int Id)
         {
             var investment = _Context.Investments.FirstOrDefault(x=>x.InvestmentId==Id);
+            if (investment == null)
+            {
+                throw new KeyNotFoundException("Investment not found.");
+            }
 
             _Context.Investments.Remove(investment);
             _Context.SaveChanges();

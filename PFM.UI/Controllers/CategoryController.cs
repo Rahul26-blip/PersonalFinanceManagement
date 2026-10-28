@@ -11,6 +11,7 @@ namespace PFM.UI.Controllers
         {
             _categoryServices = categoryServices;
         }
+
         [HttpGet]
         public IActionResult Index()
         {

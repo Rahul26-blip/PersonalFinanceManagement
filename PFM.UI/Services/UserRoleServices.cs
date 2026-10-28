@@ -42,7 +42,7 @@ namespace PFM.UI.Services
 
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var result = _httpClient.GetAsync(ApiUrl + "api/UserRole/GetById" + Id).Result;
+            var result = _httpClient.GetAsync(ApiUrl + "api/UserRole/GetById/" + Id).Result;
 
             if (!result.IsSuccessStatusCode)
             {

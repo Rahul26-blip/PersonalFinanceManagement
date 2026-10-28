@@ -11,17 +11,20 @@ namespace PFM.UI.Controllers
         {
             _debtservices = debtservices;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
             var debtModel = _debtservices.GetAll();
             return View(debtModel);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Create(DebtModel debtModel)
         {
@@ -39,6 +42,7 @@ namespace PFM.UI.Controllers
 
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public IActionResult Edit(int Id)
         {

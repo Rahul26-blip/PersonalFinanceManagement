@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PFM.Application.DTO;
 using PFM.Application.IServices;
 
 namespace PFM.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PermissionController : ControllerBase

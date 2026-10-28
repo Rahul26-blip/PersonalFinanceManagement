@@ -35,6 +35,12 @@ namespace PFM.Infrastructure.Repository
         public void Delete(int Id)
         {
             var permission = _context.Permissions.FirstOrDefault(c=>c.PermissionId == Id);
+
+            if (permission == null)
+            {
+                throw new KeyNotFoundException("Permission not found.");
+            }
+
             _context.Permissions.Remove(permission);
             _context.SaveChanges();
         }

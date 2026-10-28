@@ -20,13 +20,11 @@ namespace PFM.UI.Controllers
             return View(rolePermissionModel);
         }
 
-
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
-
 
         [HttpPost]
         public IActionResult Create(RolePermissionModel rolePermissionModel)
@@ -48,7 +46,6 @@ namespace PFM.UI.Controllers
             return RedirectToAction("Index");
         }
 
-
         [HttpGet]
         public IActionResult Edit(int Id)
         {
@@ -56,7 +53,6 @@ namespace PFM.UI.Controllers
 
             return View(rolePermissionModel);
         }
-
 
         [HttpPost]
         public IActionResult Edit(RolePermissionModel rolePermissionModel)

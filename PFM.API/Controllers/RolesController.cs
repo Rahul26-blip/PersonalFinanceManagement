@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PFM.Application.DTO;
 using PFM.Application.IServices;
 
 namespace PFM.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RolesController : ControllerBase
@@ -23,19 +25,23 @@ namespace PFM.API.Controllers
         }
 
         [HttpGet("GetById/{Id}")]
-        public IActionResult GetById(int Id, RoleDTO roleDTO)
+        public IActionResult GetById(int Id)
         {
             var role = _roleServices.GetById(Id);
 
+            if (role == null)
+            {
+                return NotFound($"Role with ID {Id} was not found.");
+            }
+
             return Ok(role);
-
-
         }
+
         [HttpPost("Create")]
-        public IActionResult Create(RoleDTO roleDTO)
+        public IActionResult Create([FromBody] RoleDTO roleDTO)
         {
             _roleServices.Create(roleDTO);
-            return Ok("Create Sucessfully");
+            return Ok("Created successfully.");
         }
 
         [HttpPut("Update/{Id}")]

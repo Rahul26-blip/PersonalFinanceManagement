@@ -33,6 +33,11 @@ namespace PFM.Application.Services
         {
             var permission = _permissionRepository.GetById(Id);
 
+            if (permission == null)
+            {
+                return null;
+            }
+
             return new PermissionDTO
             {
                 PermissionId = permission.PermissionId,
@@ -55,17 +60,28 @@ namespace PFM.Application.Services
 
             _permissionRepository.Create(permission);
         }
-        public void Update (PermissionDTO permissionDto)
+
+        public void Update(PermissionDTO permissionDto)
         {
+            // Step 1: Get permission from the repository using its ID
             var permission = _permissionRepository.GetById(permissionDto.PermissionId);
 
+            // Step 2: Check if permission exists
+            if (permission == null)
+            {
+                throw new KeyNotFoundException("Permission not found.");
+            }
+
+            // Step 3: Update permission details
             permission.PermissionName = permissionDto.PermissionName;
             permission.PermissionCode = permissionDto.PermissionCode;
             permission.IsActive = permissionDto.IsActive;
             permission.UpdatedOn = DateTime.Now;
 
+            // Step 4: Save changes through the repository
             _permissionRepository.Update(permission);
         }
+
         public void Delete(int Id)
         {
             _permissionRepository.Delete(Id);

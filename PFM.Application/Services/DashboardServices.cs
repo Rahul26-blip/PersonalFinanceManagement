@@ -28,7 +28,7 @@ namespace PFM.Application.Services
 
             var transactions = _transactionRepository.GetAll().Where(t => t.UserId == userId).ToList();
 
-            var budgets = _budgetRepository.GetAll().Where(b => b.UserId == userId).ToList();
+            var budgets = _budgetRepository.GetAll(userId);
 
             // Current month date range
             DateTime today = DateTime.Today;

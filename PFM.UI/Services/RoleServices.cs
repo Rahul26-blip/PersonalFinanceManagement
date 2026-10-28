@@ -33,24 +33,50 @@ namespace PFM.UI.Services
 
             return RoleModel;
         }
-        public RoleModel GetById(int Id)
+
+        public RoleModel? GetById(int id)
         {
-            var ApiUrl = _configuration["ApiSettings:APIUrl"];
+            var apiUrl = _configuration["ApiSettings:APIUrl"];
 
-            var token = _httpContextAccessor.HttpContext?.Session.GetString("token");
-
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-            var result = _httpClient.GetAsync(ApiUrl + "api/Roles/GetById/" + Id).Result;
-
-            if (!result.IsSuccessStatusCode)
+            if (string.IsNullOrWhiteSpace(apiUrl))
             {
-                return null;
+                throw new InvalidOperationException(
+                    "APISettings:APIUrl is missing from appsettings.json.");
             }
 
-            var RoleModel = result.Content.ReadFromJsonAsync<RoleModel>().Result;
+            var token = _httpContextAccessor.HttpContext?
+                .Session.GetString("token");
 
-            return RoleModel;
+            _httpClient.DefaultRequestHeaders.Authorization =
+                string.IsNullOrWhiteSpace(token)
+                    ? null
+                    : new System.Net.Http.Headers.AuthenticationHeaderValue(
+                        "Bearer", token);
+
+            var response = _httpClient
+                .GetAsync($"{apiUrl.TrimEnd('/')}/api/Roles/GetById/{id}")
+                .Result;
+
+            // Show the actual reason if the API request fails.
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMessage = response.Content.ReadAsStringAsync().Result;
+
+                throw new Exception(
+                    $"Get Role failed. Status: {(int)response.StatusCode} " +
+                    $"{response.StatusCode}. API message: {errorMessage}");
+            }
+
+            var role = response.Content
+                .ReadFromJsonAsync<RoleModel>().Result;
+
+            if (role == null)
+            {
+                throw new Exception(
+                    $"The API returned an empty response for Role ID {id}.");
+            }
+
+            return role;
         }
 
         public bool Create(RoleModel roleModel)

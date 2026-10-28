@@ -31,6 +31,11 @@ namespace PFM.Application.Services
         {
             Role role = _roleRepository.GetById(roleDTO.RoleId);
 
+            if (role == null)
+            {
+                throw new KeyNotFoundException("Role not found.");
+            }
+
             role.RoleName = roleDTO.RoleName;
             role.RoleCode = roleDTO.RoleCode;
             role.IsActive = roleDTO.IsActive;
