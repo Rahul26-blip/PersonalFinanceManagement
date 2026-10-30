@@ -44,41 +44,27 @@ builder.Services.AddDbContext<AppDbContext>(Options => Options.UseSqlServer
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-
         var jwtKey = builder.Configuration["Jwt:Key"];
         var jwtIssuer = builder.Configuration["Jwt:Issuer"];
         var jwtAudience = builder.Configuration["Jwt:Audience"];
 
-        if (string.IsNullOrWhiteSpace(jwtKey) ||
-            string.IsNullOrWhiteSpace(jwtIssuer) ||
-            string.IsNullOrWhiteSpace(jwtAudience))
-        {
-            throw new InvalidOperationException(
-                "JWT Key, Issuer, and Audience must be configured.");
-        }
-
-        builder.Services
-            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+        options.TokenValidationParameters =
+            new TokenValidationParameters
             {
-                options.TokenValidationParameters =
-                    new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(jwtKey)),
+                ValidateIssuerSigningKey = true,
 
-                        ValidateIssuer = true,
-                        ValidIssuer = jwtIssuer,
+                IssuerSigningKey =new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
 
-                        ValidateAudience = true,
-                        ValidAudience = jwtAudience,
+                ValidateIssuer = true,
+                ValidIssuer = jwtIssuer,
 
-                        ValidateLifetime = true,
-                        ClockSkew = TimeSpan.Zero
-                    };
-            });
+                ValidateAudience = true,
+                ValidAudience = jwtAudience,
 
+                ValidateLifetime = true,
+
+                ClockSkew = TimeSpan.Zero
+            };
     });
 //Account
 builder.Services.AddScoped<IAccountServices, AccountServices>();
@@ -128,11 +114,9 @@ var app = builder.Build();
 
 
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();

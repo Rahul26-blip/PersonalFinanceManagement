@@ -57,14 +57,12 @@ namespace PFM.XTests
             // Arrange
             string correctPassword = "TestPassword123!";
 
-            string passwordHash =
-                _passwordServices.HashPassword(correctPassword);
+            string passwordHash =_passwordServices.HashPassword(correctPassword);
 
             string incorrectPassword = "WrongPassword123!";
 
             // Act
-            bool result = _passwordServices.VerifyPassword(
-                incorrectPassword,
+            bool result = _passwordServices.VerifyPassword(incorrectPassword,
                 passwordHash);
 
             // Assert

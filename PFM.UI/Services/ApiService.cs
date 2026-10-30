@@ -16,26 +16,51 @@ namespace PFM.UI.Services
         }
 
 
+
         public LoginResponseModel Login(LoginModel loginModel)
         {
-            var ApiUrl = _configuration["ApiSettings:APIUrl"];
+            var apiUrl = _configuration["ApiSettings:APIUrl"];
 
-            if (string.IsNullOrWhiteSpace(ApiUrl))
+            if (string.IsNullOrWhiteSpace(apiUrl))
             {
-                throw new InvalidOperationException("APISettings:APIUrl is missing from appsettings.json.");
-            }
-            var response = _httpClient.PostAsJsonAsync(ApiUrl + "api/Users/Login", loginModel).Result;
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception( $"Login API failed. Status: {(int)response.StatusCode} " + $"{response.StatusCode}. Response: {response}");
+                throw new InvalidOperationException(
+                    "ApiSettings:APIUrl is missing from appsettings.json.");
             }
 
-            var login = response.Content.ReadFromJsonAsync<LoginResponseModel>().Result;
+            try
+            {
+                // Send login details to the API.
+                var response = _httpClient.PostAsJsonAsync(apiUrl + "api/Users/Login", loginModel).GetAwaiter().GetResult();
 
-            return login;
+                // Show the actual API error response if login fails.
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = response.Content.ReadAsStringAsync()
+                        .GetAwaiter()
+                        .GetResult();
 
+                    throw new Exception(
+                        $"Login API failed: {(int)response.StatusCode} " +
+                        $"{response.StatusCode}. Response: {error}");
+                }
+
+                // Convert the API response into LoginResponseModel.
+                var login = response.Content
+                    .ReadFromJsonAsync<LoginResponseModel>()
+                    .GetAwaiter()
+                    .GetResult();
+
+                return login ?? throw new Exception(
+                    "The login API returned an empty response.");
+            }
+            catch (HttpRequestException ex)
+            {
+                // Include the inner exception, which may identify the SSL problem.
+                throw new Exception(
+                    $"Unable to connect to the PFM API. Details: {ex}", ex);
+            }
         }
+
         public bool Register(RegisterModel registerModel)
         {
             var ApiUrl = _configuration["ApiSettings:APIUrl"];

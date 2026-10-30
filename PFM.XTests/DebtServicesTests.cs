@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using Moq;
-using Xunit;
-
+﻿using Moq;
 using PFM.Application.DTO;
 using PFM.Application.Services;
 using PFM.Domain.Entites;
@@ -216,7 +211,7 @@ namespace PFM.XTests
             Assert.True(savedDebt.CreatedOn <= DateTime.Now);
             Assert.Null(savedDebt.UpdatedOn);
 
-            _mockRepository.Verify(r => r.Create(It.IsAny<Debts>()),Times.Once);
+            _mockRepository.Verify(r => r.Create(It.IsAny<Debts>()), Times.Once);
         }
 
         // TEST 7: Update modifies an existing debt.
@@ -290,7 +285,7 @@ namespace PFM.XTests
             // Act and Assert
             Assert.Throws<NullReferenceException>(() => _debtServices.Update(dto));
 
-            _mockRepository.Verify( r => r.Update(It.IsAny<Debts>()), Times.Never);
+            _mockRepository.Verify(r => r.Update(It.IsAny<Debts>()), Times.Never);
         }
 
         // TEST 9: Delete passes the correct ID.
@@ -304,7 +299,7 @@ namespace PFM.XTests
             _debtServices.Delete(debtId);
 
             // Assert
-            _mockRepository.Verify(r => r.Delete(debtId),Times.Once);
+            _mockRepository.Verify(r => r.Delete(debtId), Times.Once);
         }
 
         // TEST 10: Delete calls the repository only once.
