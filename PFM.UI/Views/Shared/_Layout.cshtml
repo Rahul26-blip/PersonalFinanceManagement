@@ -26,9 +26,19 @@
           asp-append-version="true" />
 
     <!-- Existing Razor class library styles -->
-    <link rel="stylesheet"
-          href="~/PFM.UI.styles.css"
-          asp-append-version="true" />
+    <link rel="stylesheet" href="~/PFM.UI.styles.css" asp-append-version="true" />
+
+    <script>
+            (function () {
+                const savedTheme =
+                    localStorage.getItem("pfm-theme") || "light";
+
+                document.documentElement.setAttribute(
+                    "data-theme",
+                    savedTheme
+                );
+            })();
+    </script>
 </head>
 
 <body>
@@ -262,6 +272,22 @@
                 <!-- Header Right -->
                 <div class="pfm-header-right">
 
+                    <!-- Theme Toggle Button -->
+                      <button type="button"
+                             id="themeToggle"
+                               class="pfm-theme-toggle"
+                               aria-label="Switch theme"
+                      title="Switch theme">
+
+                       <i class="bi bi-moon-stars-fill"
+                      id="themeIcon"></i>
+
+                    <span id="themeText">Dark Mode</span>
+
+                 </button>
+                    
+                  
+
                     <!-- User Profile Dropdown -->
                     <div class="dropdown">
 
@@ -383,8 +409,7 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/js/site.js"
-            asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
     <!-- Allow individual Views to load their own scripts -->
     @await RenderSectionAsync("Scripts", required: false)

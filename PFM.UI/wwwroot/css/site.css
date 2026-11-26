@@ -1945,3 +1945,180 @@ body.pfm-sidebar-collapsed .pfm-sidebar-bottom {
         margin: 0;
         box-sizing: border-box;
     }
+
+
+/* =========================================
+   PFM THEME COLORS
+========================================= */
+
+:root {
+    /* Existing PFM colors */
+    --pfm-sidebar: #174b55;
+    --pfm-sidebar-hover: #236571;
+    --pfm-primary: #258b91;
+    --pfm-primary-hover: #1c7379;
+    /* Light theme */
+    --pfm-background: #f2f5f7;
+    --pfm-white: #ffffff;
+    --pfm-text: #273746;
+    --pfm-muted: #7b8794;
+    --pfm-border: #e3e9ed;
+    --pfm-card: #ffffff;
+    --pfm-input-bg: #ffffff;
+    --pfm-table-header: #f5f7fa;
+    --pfm-hover-bg: #edf7f7;
+    --pfm-danger: #dc4c64;
+    --pfm-sidebar-width: 255px;
+}
+
+/* =========================================
+   DARK THEME
+========================================= */
+
+html[data-theme="dark"] {
+    --pfm-background: #151b26;
+    --pfm-white: #222c3a;
+    --pfm-text: #e5eaf1;
+    --pfm-muted: #a0aec0;
+    --pfm-border: #394657;
+    --pfm-card: #222c3a;
+    --pfm-input-bg: #182230;
+    --pfm-table-header: #293647;
+    --pfm-hover-bg: #303e50;
+    --pfm-danger: #ff7185;
+}
+
+/* =========================================
+   GLOBAL DARK MODE STYLES
+========================================= */
+
+body {
+    background: var(--pfm-background);
+    color: var(--pfm-text);
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Main application */
+.pfm-main,
+.pfm-content,
+.pfm-page-container {
+    background-color: var(--pfm-background);
+    color: var(--pfm-text);
+}
+
+/* Header */
+.pfm-header {
+    background: var(--pfm-white);
+    border-color: var(--pfm-border);
+}
+
+/* Cards */
+.card,
+.pfm-card {
+    background: var(--pfm-card);
+    color: var(--pfm-text);
+    border-color: var(--pfm-border);
+}
+
+/* Headings and text */
+.pfm-header-title,
+h1, h2, h3, h4, h5, h6 {
+    color: var(--pfm-text);
+}
+
+p, label {
+    color: var(--pfm-text);
+}
+
+/* Tables */
+.table {
+    color: var(--pfm-text);
+    border-color: var(--pfm-border);
+}
+
+    .table thead th {
+        background: var(--pfm-table-header);
+        color: var(--pfm-text);
+    }
+
+    .table td {
+        background: var(--pfm-card);
+        color: var(--pfm-text);
+        border-color: var(--pfm-border);
+    }
+
+/* Forms */
+.form-control,
+.form-select {
+    background-color: var(--pfm-input-bg);
+    color: var(--pfm-text);
+    border-color: var(--pfm-border);
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        background-color: var(--pfm-input-bg);
+        color: var(--pfm-text);
+        border-color: var(--pfm-primary);
+    }
+
+    .form-control::placeholder {
+        color: var(--pfm-muted);
+    }
+
+/* Dropdown */
+.dropdown-menu {
+    background: var(--pfm-card);
+    border-color: var(--pfm-border);
+}
+
+.dropdown-item {
+    color: var(--pfm-text);
+}
+
+    .dropdown-item:hover {
+        background: var(--pfm-hover-bg);
+        color: var(--pfm-text);
+    }
+
+/* Footer */
+.pfm-footer {
+    background: var(--pfm-white);
+    color: var(--pfm-muted);
+    border-color: var(--pfm-border);
+}
+
+/* Authentication pages */
+.pfm-auth-body {
+    background: var(--pfm-background);
+    color: var(--pfm-text);
+}
+
+/* =========================================
+   THEME TOGGLE BUTTON
+========================================= */
+
+.pfm-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid var(--pfm-border);
+    border-radius: 9px;
+    background: var(--pfm-card);
+    color: var(--pfm-text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .pfm-theme-toggle:hover {
+        background: var(--pfm-hover-bg);
+        border-color: var(--pfm-primary);
+    }
+
+    .pfm-theme-toggle i {
+        font-size: 17px;
+    }

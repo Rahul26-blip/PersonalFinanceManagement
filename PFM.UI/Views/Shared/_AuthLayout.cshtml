@@ -12,9 +12,19 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
 
-    <link rel="stylesheet"
-          href="~/css/site.css"
-          asp-append-version="true" />
+    <link rel="stylesheet"href="~/css/site.css"asp-append-version="true" />
+
+    <script>
+            (function () {
+                const savedTheme =
+                    localStorage.getItem("pfm-theme") || "light";
+
+                document.documentElement.setAttribute(
+                    "data-theme",
+                    savedTheme
+                );
+            })();
+    </script>
 </head>
 <body class="pfm-auth-body">
 
@@ -30,6 +40,14 @@
             </span>
         </header>
 
+        <button type="button" id="themeToggle" class="pfm-theme-toggle" aria-label="Switch theme">
+
+            <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+
+            <span id="themeText">Dark Mode</span>
+
+        </button>
+
         @RenderBody()
 
         <footer class="pfm-auth-footer">
@@ -39,6 +57,7 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
